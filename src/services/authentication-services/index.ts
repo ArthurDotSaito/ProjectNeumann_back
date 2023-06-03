@@ -6,6 +6,7 @@ import { invalidCredentialsError } from '@/errors';
 import sessionRepository from '@/repositories/session-repository';
 import { SignInParams } from '@/protocols';
 import { SignInResult } from '@/protocols';
+import { exclude } from '@/utils/prisma-utils';
 
 async function signIn(params: SignInParams): Promise<SignInResult> {
 	const { email, password } = params;
