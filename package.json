@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/server.js",
     "migration:run": "prisma migrate deploy",
     "migration:generate": "npm run dev:load-envs prisma migrate dev",
@@ -28,7 +27,6 @@
   "dependencies": {
     "@prisma/client": "^4.15.0",
     "@types/axios": "^0.14.0",
-    "@types/jsonwebtoken": "^9.0.2",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
@@ -49,7 +47,9 @@
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
+    "@types/faker": "^6.6.9",
     "@types/jest": "^29.5.2",
+    "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^20.2.5",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.59.8",
