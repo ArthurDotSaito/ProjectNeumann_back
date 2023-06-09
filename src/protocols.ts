@@ -12,3 +12,11 @@ export type SignInParams = Pick<User, 'email' | 'password'>;
 export type GetUserOrFailResult = Pick<User, 'id' | 'email' | 'password'>;
 
 export type SignInResult = { user: Pick<User, 'id' | 'email'>; token: string };
+
+export type RequestError = {
+	status: number;
+	data: object | null;
+	statusText: string;
+	name: string;
+	message: string;
+};
