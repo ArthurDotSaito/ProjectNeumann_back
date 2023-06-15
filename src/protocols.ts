@@ -20,3 +20,9 @@ export type RequestError = {
 	name: string;
 	message: string;
 };
+
+export type SubmitCodeData = {
+	language_id: string;
+	source_code: string;
+	stdin: string;
+};
