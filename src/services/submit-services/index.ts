@@ -1,6 +1,14 @@
 import axios from 'axios';
 
-export async function checkSubmitTokenStatus(token: string) {
+import { SubmitCodeData } from '@/protocols';
+
+async function compileCode(submitCode: SubmitCodeData) {
+	const result = await axios.post(`${process.env.RAPID_API_URL}`, submitCode);
+
+	return result.data;
+}
+
+async function checkSubmitTokenStatus(token: string) {
 	const response = await getTokenToCheck(token);
 	const responseId = response.data.status?.id;
 
@@ -35,3 +43,11 @@ async function getTokenToCheck(token: string) {
 
 	return data;
 }
+
+const submitServices = {
+	compileCode,
+	checkSubmitTokenStatus,
+	getTokenToCheck,
+};
+
+export default submitServices;
