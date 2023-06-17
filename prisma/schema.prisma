@@ -35,10 +35,11 @@ model Post {
   title     String
   content   String
   userId    Int
+  date      DateTime
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  author    User      @relation(fields: [userId], references: [id])
   comments  Comment[]
+  User      User      @relation(fields: [userId], references: [id])
 }
 
 model Comment {
