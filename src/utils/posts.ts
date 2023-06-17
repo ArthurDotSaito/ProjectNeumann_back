@@ -3,9 +3,11 @@ import path from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
 
-const postsDirectory = path.join(process.cwd(), 'articles');
+import { BlogPost } from '@/types';
 
-export default function getSortedPostsData() {
+const postsDirectory = path.join(process.cwd(), 'src/articles');
+
+export default async function getSortedPostsData() {
 	const fileNames = fs.readdirSync(postsDirectory);
 	const allPostsData = fileNames.map((fn) => {
 		const name = fn.replace(/\.md$/, '');
@@ -19,8 +21,8 @@ export default function getSortedPostsData() {
 			name,
 			title: matterResult.data.title,
 			date: matterResult.data.date,
-			content: matterResult.data.content,
-			formattedContent: marked(matterResult.data.content),
+			content: matterResult.content,
+			formattedContent: marked(matterResult.content),
 		};
 
 		return blogPost;

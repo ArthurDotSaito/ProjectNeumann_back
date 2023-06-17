@@ -3,7 +3,7 @@ import postsRepository from '@/repositories/posts-repositories';
 import getSortedPostsData from '@/utils/posts';
 
 async function createPostFromData() {
-	const sortedPostsData = getSortedPostsData();
+	const sortedPostsData = await getSortedPostsData();
 
 	if (!sortedPostsData) throw notFoundError();
 

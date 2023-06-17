@@ -5,14 +5,13 @@ import { SubmitCodeData } from '@/protocols';
 import submitServices from '@/services/submit-services';
 
 export async function submitCode(req: AuthenticatedRequest, res: Response, next: NextFunction) {
-	console.log('submitCodeController');
 	const codeSubmission = req.body as SubmitCodeData;
 	try {
 		const compileResponse = await submitServices.compileCode(codeSubmission);
 		const token = compileResponse.token;
 		await submitServices.checkSubmitTokenStatus(token);
 
-		res.status(500).send(compileResponse);
+		res.status(201).send(compileResponse);
 	} catch (err) {
 		const error = err.response ? err.response.data : err;
 		const status = err.response.status;

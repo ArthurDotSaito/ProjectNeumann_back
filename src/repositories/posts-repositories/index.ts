@@ -1,4 +1,5 @@
 import { prisma, redis } from '@/config';
+import { BlogPost } from '@/types';
 
 async function getCachedPosts(cacheKey: string) {
 	const cachePosts = await redis.get(cacheKey);
