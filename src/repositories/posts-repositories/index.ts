@@ -10,6 +10,11 @@ async function getCachedPosts(cacheKey: string) {
 }
 
 async function createPostFromData(sortedPostsData: BlogPost[]) {
+	const cachedPostsFromDataKey = 'postsFromData';
+	const cachedPostsFromData = await getCachedPosts(cachedPostsFromDataKey);
+
+	if (cachedPostsFromData) return cachedPostsFromData;
+
 	const createPostPromises = sortedPostsData.map(async (postData) => {
 		await prisma.post.create({
 			data: {
@@ -21,10 +26,33 @@ async function createPostFromData(sortedPostsData: BlogPost[]) {
 	});
 
 	await Promise.all(createPostPromises);
+
+	const posts = sortedPostsData.map((postData) => ({
+		title: postData.title,
+		content: postData.formattedContent,
+		date: new Date(postData.date),
+	}));
+
+	await redis.set(cachedPostsFromDataKey, JSON.stringify(posts));
+
+	return posts;
+}
+
+async function getAllPosts() {
+	const cachedPostsKey = 'posts';
+	const cachedPosts = await getCachedPosts(cachedPostsKey);
+	if (cachedPosts) return cachedPosts;
+
+	const posts = await prisma.post.findMany();
+
+	await redis.set(cachedPostsKey, JSON.stringify(posts));
+
+	return posts;
 }
 
 const postsRepository = {
 	createPostFromData,
+	getAllPosts,
 };
 
 export default postsRepository;
