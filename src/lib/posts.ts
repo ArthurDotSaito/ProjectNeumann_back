@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { marked } from 'marked';
 
 const postsDirectory = path.join(process.cwd(), 'articles');
 
@@ -18,6 +19,8 @@ export default function getSortedPostsData() {
 			name,
 			title: matterResult.data.title,
 			date: matterResult.data.date,
+			content: matterResult.data.content,
+			formattedContent: marked(matterResult.data.content),
 		};
 
 		return blogPost;
