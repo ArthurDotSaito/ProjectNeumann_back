@@ -10,8 +10,16 @@ async function createPostFromData() {
 	await postsRepository.createPostFromData(sortedPostsData);
 }
 
+async function getAllPosts() {
+	const posts = await postsRepository.getAllPosts();
+	if (!posts) throw notFoundError();
+
+	return posts;
+}
+
 const postsServices = {
 	createPostFromData,
+	getAllPosts,
 };
 
 export default postsServices;
