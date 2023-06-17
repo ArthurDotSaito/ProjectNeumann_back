@@ -1,4 +1,13 @@
-import { prisma } from '@/config';
+import { prisma, redis } from '@/config';
+
+async function getCachedPosts(cacheKey: string) {
+	const cachePosts = await redis.get(cacheKey);
+	if (cachePosts) {
+		const posts = JSON.parse(cachePosts);
+		return posts;
+	}
+	return null;
+}
 
 async function createPostFromData(sortedPostsData: BlogPost[]) {
 	const createPostPromises = sortedPostsData.map(async (postData) => {

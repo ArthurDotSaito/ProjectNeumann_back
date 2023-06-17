@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import 'express-async-errors';
 import express, { Express } from 'express';
 import cors from 'cors';
-import { usersRouter, authenticationRouter, submitCodeRoute } from './routers';
+import { usersRouter, authenticationRouter, submitCodeRoute, postsRouter } from './routers';
 import { loadEnv, connectDb, disconnectDB } from '@/config';
 
 loadEnv();
@@ -15,7 +15,8 @@ app
 	.get('/health', (_req, res) => res.send('OK!'))
 	.use('/sign-up', usersRouter)
 	.use('/sign-in', authenticationRouter)
-	.use('/submit', submitCodeRoute);
+	.use('/submit', submitCodeRoute)
+	.use('/posts', postsRouter);
 
 export function init(): Promise<Express> {
 	connectDb();
