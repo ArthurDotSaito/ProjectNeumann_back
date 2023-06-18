@@ -51,6 +51,14 @@ async function getAllPosts() {
 	return posts;
 }
 
+async function getPostById(postId: number) {
+	return prisma.post.findFirst({
+		where: {
+			id: postId,
+		},
+	});
+}
+
 const postsRepository = {
 	createPostFromData,
 	getAllPosts,
