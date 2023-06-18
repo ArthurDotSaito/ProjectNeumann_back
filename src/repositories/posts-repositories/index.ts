@@ -62,6 +62,7 @@ async function getPostById(postId: number) {
 const postsRepository = {
 	createPostFromData,
 	getAllPosts,
+	getPostById,
 };
 
 export default postsRepository;

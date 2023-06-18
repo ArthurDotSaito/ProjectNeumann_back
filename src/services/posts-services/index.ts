@@ -17,9 +17,17 @@ async function getAllPosts() {
 	return posts;
 }
 
+async function getPostById(postId: number) {
+	const post = await postsRepository.getPostById(postId);
+	if (!post) throw notFoundError();
+
+	return post;
+}
+
 const postsServices = {
 	createPostFromData,
 	getAllPosts,
+	getPostById,
 };
 
 export default postsServices;
