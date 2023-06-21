@@ -4,7 +4,6 @@ import getSortedPostsData from '@/utils/posts';
 
 async function createPostFromData() {
 	const sortedPostsData = await getSortedPostsData();
-
 	if (!sortedPostsData) throw notFoundError();
 
 	await postsRepository.createPostFromData(sortedPostsData);
@@ -12,6 +11,7 @@ async function createPostFromData() {
 
 async function getAllPosts() {
 	const posts = await postsRepository.getAllPosts();
+
 	if (!posts) throw notFoundError();
 
 	return posts;

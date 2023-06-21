@@ -10,15 +10,25 @@ async function getCachedPosts(cacheKey: string) {
 	return null;
 }
 
+async function updateCachedPosts() {
+	const cachedPostsKey = 'posts';
+	const posts = await prisma.post.findMany();
+
+	// Atualizar os posts em cache
+	await redis.set(cachedPostsKey, JSON.stringify(posts));
+}
+
 async function createPostFromData(sortedPostsData: BlogPost[]) {
-	const cachedPostsFromDataKey = 'postsFromData';
-	const cachedPostsFromData = await getCachedPosts(cachedPostsFromDataKey);
-
-	if (cachedPostsFromData) return cachedPostsFromData;
-
-	const createPostPromises = sortedPostsData.map(async (postData) => {
-		await prisma.post.create({
-			data: {
+	const createPostPromises = sortedPostsData.map((postData) => {
+		return prisma.post.upsert({
+			where: {
+				title: postData.title,
+			},
+			update: {
+				content: postData.formattedContent,
+				date: new Date(postData.date),
+			},
+			create: {
 				title: postData.title,
 				content: postData.formattedContent,
 				date: new Date(postData.date),
@@ -26,17 +36,11 @@ async function createPostFromData(sortedPostsData: BlogPost[]) {
 		});
 	});
 
-	await Promise.all(createPostPromises);
+	const result = await Promise.allSettled(createPostPromises);
+	await updateCachedPosts();
+	console.log(result);
 
-	const posts = sortedPostsData.map((postData) => ({
-		title: postData.title,
-		content: postData.formattedContent,
-		date: new Date(postData.date),
-	}));
-
-	await redis.set(cachedPostsFromDataKey, JSON.stringify(posts));
-
-	return posts;
+	return result;
 }
 
 async function getAllPosts() {
