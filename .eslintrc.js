@@ -27,4 +27,13 @@ module.exports = {
 		},
 		'import/resolver': { typescript: {}, node: {} },
 	},
+	overrides: [
+		{
+			files: ['*.md'],
+			rules: {
+				'@typescript-eslint/no-empty-function': 'off',
+				'@typescript-eslint/no-unused-vars': 'off',
+			},
+		},
+	],
 };
