@@ -18,6 +18,7 @@ app
 	.use('/sign-in', authenticationRouter)
 	.use('/submit', submitCodeRoute)
 	.use('/posts', postsRouter)
+	.use('/comments')
 	.use(handleApplicationErrors);
 
 export function init(): Promise<Express> {
