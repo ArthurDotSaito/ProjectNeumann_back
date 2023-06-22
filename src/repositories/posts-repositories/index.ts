@@ -14,7 +14,6 @@ async function updateCachedPosts() {
 	const cachedPostsKey = 'posts';
 	const posts = await prisma.post.findMany();
 
-	// Atualizar os posts em cache
 	await redis.set(cachedPostsKey, JSON.stringify(posts));
 }
 
@@ -38,7 +37,6 @@ async function createPostFromData(sortedPostsData: BlogPost[]) {
 
 	const result = await Promise.allSettled(createPostPromises);
 	await updateCachedPosts();
-	console.log(result);
 
 	return result;
 }
