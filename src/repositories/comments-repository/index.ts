@@ -1,9 +1,16 @@
 import { prisma } from '@/config';
 
-async function getAllCommentsFromPost(commentId: number) {
+async function getAllCommentsFromPost(postId: number) {
 	return prisma.comment.findMany({
 		where: {
-			id: commentId,
+			postId: postId,
+		},
+		include: {
+			author: {
+				select: {
+					username: true,
+				},
+			},
 		},
 	});
 }
