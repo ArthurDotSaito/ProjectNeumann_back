@@ -7,8 +7,6 @@ import { CreateUserParams } from '@/protocols';
 export async function createUser({ email, password, username }: CreateUserParams): Promise<User> {
 	await validateUniqueEmailOrFail(email);
 
-	console.log(username);
-
 	const hashedPassword = await bcrypt.hash(password, 12);
 	return userRepository.createUser({
 		email,
