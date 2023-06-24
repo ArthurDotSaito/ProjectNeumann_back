@@ -1,5 +1,4 @@
 import { forBiddenError } from '@/errors/forbidden-error';
-import { notFoundError } from '@/errors/notFound-error';
 import commentsRepository from '@/repositories/comments-repository';
 
 async function getAllCommentsFromPost(postId: number) {
