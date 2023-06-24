@@ -9,6 +9,7 @@ export async function createUser(req: Request, res: Response) {
 		const user = await userService.createUser({ email, username, password });
 		return res.status(httpStatus.CREATED).json({
 			id: user.id,
+			username: user.username,
 			email: user.email,
 		});
 	} catch (error) {
