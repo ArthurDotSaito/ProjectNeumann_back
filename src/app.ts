@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import 'express-async-errors';
 import express, { Express } from 'express';
 import cors from 'cors';
-import { usersRouter, authenticationRouter, submitCodeRoute, postsRouter } from './routers';
+import { usersRouter, authenticationRouter, submitCodeRoute, postsRouter, commentsRouter } from './routers';
 import { handleApplicationErrors } from './middlewares/error-handling-middleware';
 import { loadEnv, connectDb, disconnectDB } from '@/config';
 
@@ -18,7 +18,7 @@ app
 	.use('/sign-in', authenticationRouter)
 	.use('/submit', submitCodeRoute)
 	.use('/posts', postsRouter)
-	.use('/comments')
+	.use('/comments', commentsRouter)
 	.use(handleApplicationErrors);
 
 export function init(): Promise<Express> {
