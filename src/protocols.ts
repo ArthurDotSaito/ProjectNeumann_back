@@ -5,7 +5,7 @@ export type ApplicationError = {
 	message: string;
 };
 
-export type CreateUserParams = Pick<User, 'email' | 'password'>;
+export type CreateUserParams = Pick<User, 'email' | 'password' | 'username'>;
 
 export type SignInParams = Pick<User, 'email' | 'password'>;
 
