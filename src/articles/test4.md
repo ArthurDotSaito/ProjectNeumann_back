@@ -1,5 +1,5 @@
 ---
-title: 'Testing2'
+title: 'Testing5'
 date: '2023-03-03'
 ---
 
@@ -9,7 +9,7 @@ Next.js has two forms of pre-rendering: **Static Generation** and **Server-side 
 
 **Server-side Rendering** is the pre-rendering method that generates the HTML on **each request**.
 
-<ul class="list-disc" style="padding-left: 20px;">
+<ul class="list-disc">
 <li>1</li>
 <li>2</li>
 <li>3</li>
