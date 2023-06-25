@@ -5,6 +5,8 @@ import * as jwt from 'jsonwebtoken';
 
 import { cleanDb, generateValidToken } from '../helpers';
 import { createUser } from '../factories';
+import getSortedPostsDataHelper from '../post.helpers';
+import { createPostFromDataFactory } from '../factories/posts-factories';
 import app, { init } from '@/app';
 
 beforeAll(async () => {
@@ -42,5 +44,16 @@ describe('GET All /posts', () => {
 			expect(response.status).toBe(httpStatus.UNAUTHORIZED);
 		});
 	});
-	describe('When token is valid', () => {});
+	describe('When token is valid', () => {
+		it('Should return all posts', async () => {
+			const user = await createUser();
+			const token = await generateValidToken();
+			const sortedPosts = await getSortedPostsDataHelper();
+			const allPost = await createPostFromDataFactory(sortedPosts);
+
+			const response = await server.get('/posts').set('Authorization', `Bearer ${token}`);
+
+			expect(response.status).toEqual(httpStatus.OK);
+		});
+	});
 });
