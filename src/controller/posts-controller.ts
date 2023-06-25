@@ -9,7 +9,7 @@ export async function getAllPosts(req: AuthenticatedRequest, res: Response, next
 		await postsServices.createPostFromData();
 		const postFromDatabase = await postsServices.getAllPosts();
 
-		return res.status(201).send(postFromDatabase);
+		return res.status(httpStatus.OK).send(postFromDatabase);
 	} catch (error) {
 		next(error);
 	}
