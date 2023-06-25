@@ -19,6 +19,7 @@ describe('createUser', () => {
 		try {
 			await userService.createUser({
 				email: existingUser.email,
+				username: faker.internet.userName(),
 				password: faker.internet.password(6),
 			});
 			fail('should throw duplicatedUserError');
@@ -30,6 +31,7 @@ describe('createUser', () => {
 	it('should create user when given email is unique', async () => {
 		const user = await userService.createUser({
 			email: faker.internet.email(),
+			username: faker.internet.userName(),
 			password: faker.internet.password(6),
 		});
 
@@ -50,6 +52,7 @@ describe('createUser', () => {
 		const rawPassword = faker.internet.password(6);
 		const user = await userService.createUser({
 			email: faker.internet.email(),
+			username: faker.internet.userName(),
 			password: rawPassword,
 		});
 

@@ -14,7 +14,7 @@ const server = supertest(app);
 
 describe('POST /auth/sign-in', () => {
 	it('should respond with status 400 when body is not given', async () => {
-		const response = await server.post('/auth/sign-in');
+		const response = await server.post('/sign-in');
 
 		expect(response.status).toBe(httpStatus.BAD_REQUEST);
 	});
@@ -22,7 +22,7 @@ describe('POST /auth/sign-in', () => {
 	it('should respond with status 400 when body is not valid', async () => {
 		const invalidBody = { [faker.lorem.word()]: faker.lorem.word() };
 
-		const response = await server.post('/auth/sign-in').send(invalidBody);
+		const response = await server.post('/sign-in').send(invalidBody);
 
 		expect(response.status).toBe(httpStatus.BAD_REQUEST);
 	});
@@ -36,7 +36,7 @@ describe('POST /auth/sign-in', () => {
 		it('should respond with status 401 if there is no user for given email', async () => {
 			const body = generateValidBody();
 
-			const response = await server.post('/auth/sign-in').send(body);
+			const response = await server.post('/sign-in').send(body);
 
 			expect(response.status).toBe(httpStatus.UNAUTHORIZED);
 		});
@@ -45,7 +45,7 @@ describe('POST /auth/sign-in', () => {
 			const body = generateValidBody();
 			await createUser(body);
 
-			const response = await server.post('/auth/sign-in').send({
+			const response = await server.post('/sign-in').send({
 				...body,
 				password: faker.lorem.word(),
 			});
@@ -58,7 +58,7 @@ describe('POST /auth/sign-in', () => {
 				const body = generateValidBody();
 				await createUser(body);
 
-				const response = await server.post('/auth/sign-in').send(body);
+				const response = await server.post('/sign-in').send(body);
 
 				expect(response.status).toBe(httpStatus.OK);
 			});
@@ -67,7 +67,7 @@ describe('POST /auth/sign-in', () => {
 				const body = generateValidBody();
 				const user = await createUser(body);
 
-				const response = await server.post('/auth/sign-in').send(body);
+				const response = await server.post('/sign-in').send(body);
 
 				expect(response.body.user).toEqual({
 					id: user.id,
@@ -79,7 +79,7 @@ describe('POST /auth/sign-in', () => {
 				const body = generateValidBody();
 				await createUser(body);
 
-				const response = await server.post('/auth/sign-in').send(body);
+				const response = await server.post('/sign-in').send(body);
 
 				expect(response.body.token).toBeDefined();
 			});

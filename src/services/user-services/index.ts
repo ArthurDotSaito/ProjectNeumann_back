@@ -18,9 +18,7 @@ export async function createUser({ email, password, username }: CreateUserParams
 async function validateUniqueEmailOrFail(email: string) {
 	const userWithSameEmail = await userRepository.findByEmail(email);
 
-	if (userWithSameEmail) {
-		throw duplicatedEmailError();
-	}
+	if (userWithSameEmail) throw duplicatedEmailError();
 }
 
 const userService = { createUser };

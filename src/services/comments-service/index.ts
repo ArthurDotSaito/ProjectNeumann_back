@@ -5,8 +5,9 @@ async function getAllCommentsFromPost(postId: number) {
 	if (!postId) throw forBiddenError();
 
 	const comments = await commentsRepository.getAllCommentsFromPost(postId);
+	const sortedComments = comments.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
-	return comments;
+	return sortedComments;
 }
 
 async function postComment(content: string, postId: number, userId: number) {
